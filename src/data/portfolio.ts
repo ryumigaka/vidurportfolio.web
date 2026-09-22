@@ -26,7 +26,10 @@ export interface Project {
 }
 
 export interface PortfolioData {
+  /** The name shown large on the core view. */
   fullName: string;
+  /** Optional civilian name, rendered as "aka …". Leave blank to hide. */
+  alias: string;
   handle: string;
   primaryRole: string;
   secondaryRole: string;
@@ -44,8 +47,9 @@ export interface PortfolioData {
 }
 
 export const portfolio: PortfolioData = {
-  fullName: "[FULL_NAME]",
-  handle: "[HANDLE]",
+  fullName: "Ryumigaka",
+  alias: "Vidur",
+  handle: "ryumigaka",
   primaryRole: "[PRIMARY_ROLE]",
   secondaryRole: "[SECONDARY_ROLE]",
   shortBio: "[SHORT_BIO]",
@@ -53,7 +57,7 @@ export const portfolio: PortfolioData = {
   email: "vidursharma25.08.08@gmail.com",
   resumePath: "[RESUME_PATH]",
   profileImagePath: "[PROFILE_IMAGE_PATH]",
-  githubUrl: "[GITHUB_URL]",
+  githubUrl: "https://github.com/ryumigaka",
   linkedinUrl: "[LINKEDIN_URL]",
   xUrl: "[X_URL]",
 

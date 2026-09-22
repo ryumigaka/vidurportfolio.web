@@ -53,9 +53,20 @@ export default function IdentitySection() {
       <div className="flex flex-col gap-8 pb-10">
         <div className="stagger-item flex gap-5" style={stagger(1)}>
           <ProfileFrame />
-          <p className="text-sm leading-relaxed text-muted">
-            <Value>{portfolio.shortBio}</Value>
-          </p>
+          <div>
+            <p className="font-mono text-[10px] uppercase tracking-widest2 text-dim">
+              {portfolio.fullName}
+              {portfolio.alias.trim().length > 0 && (
+                <>
+                  {" "}
+                  aka <span className="text-muted">{portfolio.alias}</span>
+                </>
+              )}
+            </p>
+            <p className="mt-3 text-sm leading-relaxed text-muted">
+              <Value>{portfolio.shortBio}</Value>
+            </p>
+          </div>
         </div>
 
         <div

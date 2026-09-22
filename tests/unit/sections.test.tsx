@@ -4,7 +4,7 @@ import IdentitySection from "@/src/components/sections/IdentitySection";
 import OperationsSection from "@/src/components/sections/OperationsSection";
 import PrimaryChannel from "@/src/components/sections/PrimaryChannel";
 import SignalSection from "@/src/components/sections/SignalSection";
-import { portfolio } from "@/src/data/portfolio";
+import { isResolvedLink, portfolio } from "@/src/data/portfolio";
 
 describe("IdentitySection", () => {
   it("renders the operator profile from the data file", () => {
@@ -51,21 +51,31 @@ describe("SignalSection", () => {
     expect(screen.getAllByTestId("signal-channel")).toHaveLength(4);
   });
 
-  it("makes the resolved email channel a real mailto link", () => {
+  it("opens the email channel in the mail client, not a new tab", () => {
     render(<SignalSection />);
-    const mailto = screen.getByRole("link");
+    const mailto = screen.getByRole("link", {
+      name: new RegExp(portfolio.email.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")),
+    });
     expect(mailto).toHaveAttribute("href", `mailto:${portfolio.email}`);
     expect(mailto).not.toHaveAttribute("target");
   });
 
-  it("leaves channels without a value non-interactive", () => {
+  it("links exactly the channels whose values are set", () => {
     render(<SignalSection />);
+    const resolvedValues = [
+      portfolio.email,
+      portfolio.githubUrl,
+      portfolio.linkedinUrl,
+      portfolio.xUrl,
+    ].filter((value) => isResolvedLink(value));
+
+    expect(screen.getAllByRole("link")).toHaveLength(resolvedValues.length);
+
     const rows = screen.getAllByTestId("signal-channel");
     const inert = rows.filter(
       (row) => row.firstElementChild?.getAttribute("aria-disabled") === "true",
     );
-    // Everything except the email channel is still an unset placeholder.
-    expect(inert).toHaveLength(rows.length - 1);
+    expect(inert).toHaveLength(rows.length - resolvedValues.length);
   });
 });
 

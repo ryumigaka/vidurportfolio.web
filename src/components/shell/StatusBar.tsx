@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useVisitorIp } from "@/src/lib/useVisitorIp";
 import { VIEW_META, type ActiveView } from "@/src/lib/views";
 
 function formatUptime(seconds: number): string {
@@ -12,6 +13,7 @@ function formatUptime(seconds: number): string {
 export default function StatusBar({ view }: { view: ActiveView }) {
   const [uptime, setUptime] = useState(0);
   const [viewport, setViewport] = useState<string | null>(null);
+  const visitorIp = useVisitorIp();
 
   useEffect(() => {
     const timer = window.setInterval(() => setUptime((v) => v + 1), 1000);
@@ -40,6 +42,11 @@ export default function StatusBar({ view }: { view: ActiveView }) {
         <span className="hidden text-muted sm:inline">
           {meta.code} / {meta.label}
         </span>
+        {visitorIp && (
+          <span className="hidden sm:inline" data-testid="visitor-ip">
+            Src <span className="text-muted/80">{visitorIp}</span>
+          </span>
+        )}
       </div>
 
       <div className="flex items-center gap-3 sm:gap-6">

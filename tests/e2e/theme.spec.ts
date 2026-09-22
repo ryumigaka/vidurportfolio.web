@@ -11,6 +11,18 @@ async function themeOf(page: Page) {
   return page.getAttribute("html", "data-theme");
 }
 
+// The status bar asks a public echo service for the visitor's address. Stub it
+// so suites never depend on outbound network access.
+test.beforeEach(async ({ page }) => {
+  await page.route(/api\.ipify\.org/, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ ip: "203.0.113.7" }),
+    }),
+  );
+});
+
 test.describe("theme", () => {
   test("boots dark and switches to light on demand", async ({ page }) => {
     await open(page, "/");

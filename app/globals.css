@@ -16,15 +16,15 @@
     --void: 2 4 3;
     --panel: 7 12 10;
     --panel-raised: 11 19 16;
-    --hairline: 19 36 31;
-    --hairline-bright: 31 58 50;
+    --hairline: 34 62 54;
+    --hairline-bright: 58 102 89;
 
     --fg: 198 214 207;
     --muted: 107 130 121;
     --dim: 61 80 73;
 
     --signal: 47 243 200;
-    --node: 74 144 240;
+    --node: 62 201 255;
     --alert: 240 136 62;
     --critical: 255 95 86;
 

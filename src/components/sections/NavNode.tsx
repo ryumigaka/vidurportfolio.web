@@ -16,12 +16,12 @@ export default function NavNode({ meta, onSelect }: NavNodeProps) {
       className="group relative block w-full text-left"
     >
       {/* Corner brackets ease outward on hover. */}
-      <span className="pointer-events-none absolute -left-1 -top-1 h-2.5 w-2.5 border-l border-t border-signal/30 transition-all duration-300 group-hover:-left-2 group-hover:-top-2 group-hover:border-signal/80" />
-      <span className="pointer-events-none absolute -right-1 -top-1 h-2.5 w-2.5 border-r border-t border-signal/30 transition-all duration-300 group-hover:-right-2 group-hover:-top-2 group-hover:border-signal/80" />
-      <span className="pointer-events-none absolute -bottom-1 -left-1 h-2.5 w-2.5 border-b border-l border-signal/30 transition-all duration-300 group-hover:-bottom-2 group-hover:-left-2 group-hover:border-signal/80" />
-      <span className="pointer-events-none absolute -bottom-1 -right-1 h-2.5 w-2.5 border-b border-r border-signal/30 transition-all duration-300 group-hover:-bottom-2 group-hover:-right-2 group-hover:border-signal/80" />
+      <span className="pointer-events-none absolute -left-1 -top-1 h-2.5 w-2.5 border-l border-t border-signal/50 transition-all duration-300 group-hover:-left-2 group-hover:-top-2 group-hover:border-signal/80" />
+      <span className="pointer-events-none absolute -right-1 -top-1 h-2.5 w-2.5 border-r border-t border-signal/50 transition-all duration-300 group-hover:-right-2 group-hover:-top-2 group-hover:border-signal/80" />
+      <span className="pointer-events-none absolute -bottom-1 -left-1 h-2.5 w-2.5 border-b border-l border-signal/50 transition-all duration-300 group-hover:-bottom-2 group-hover:-left-2 group-hover:border-signal/80" />
+      <span className="pointer-events-none absolute -bottom-1 -right-1 h-2.5 w-2.5 border-b border-r border-signal/50 transition-all duration-300 group-hover:-bottom-2 group-hover:-right-2 group-hover:border-signal/80" />
 
-      <div className="border border-hairline bg-void/80 px-4 py-3.5 backdrop-blur-[2px] transition-colors duration-300 group-hover:border-signal/45 group-hover:bg-panel/80">
+      <div className="border border-hairlineBright bg-void/80 px-4 py-3.5 backdrop-blur-[2px] transition-colors duration-300 group-hover:border-signal/60 group-hover:bg-panel/80">
         <div className="flex items-center justify-between gap-3">
           <span className="font-mono text-[10px] tracking-widest2 text-signal/60">
             {meta.code}

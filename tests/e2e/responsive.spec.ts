@@ -8,6 +8,18 @@ async function open(page: Page, path: string) {
     .waitFor();
 }
 
+// The status bar asks a public echo service for the visitor's address. Stub it
+// so suites never depend on outbound network access.
+test.beforeEach(async ({ page }) => {
+  await page.route(/api\.ipify\.org/, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ ip: "203.0.113.7" }),
+    }),
+  );
+});
+
 test.describe("responsive composition", () => {
   test("the shell fills the viewport without overflowing it", async ({
     page,

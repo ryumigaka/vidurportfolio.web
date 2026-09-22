@@ -94,9 +94,10 @@ export default function CursorLayer({ theme }: { theme: Theme }) {
       const delta = Math.min(now - last, 64);
       last = now;
 
-      // Reticle follows with a slight lag for weight.
-      renderX += (pointerX - renderX) * Math.min(1, delta / 60);
-      renderY += (pointerY - renderY) * Math.min(1, delta / 60);
+      // Reticle tracks the pointer closely; just enough lag to read as weight.
+      const follow = Math.min(1, delta / 22);
+      renderX += (pointerX - renderX) * follow;
+      renderY += (pointerY - renderY) * follow;
       reticle.style.transform = `translate3d(${renderX}px, ${renderY}px, 0) translate(-50%, -50%)`;
       readout.textContent = `${String(Math.round(pointerX)).padStart(4, "0")} ${String(
         Math.round(pointerY),
@@ -105,7 +106,7 @@ export default function CursorLayer({ theme }: { theme: Theme }) {
       ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
       for (let i = particles.length - 1; i >= 0; i -= 1) {
         const particle = particles[i];
-        particle.life -= delta / 900;
+        particle.life -= delta / 620;
         particle.y += particle.drift;
         particle.x += particle.drift;
         if (particle.life <= 0) {

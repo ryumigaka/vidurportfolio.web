@@ -1,6 +1,7 @@
 import { expect, test, type Page } from "@playwright/test";
+import { portfolio } from "../../src/data/portfolio";
 
-const FULL_NAME = "[FULL_NAME]";
+const FULL_NAME = portfolio.fullName;
 
 /** Client-side routing only responds once the shell has hydrated. */
 async function ready(page: Page) {
@@ -26,6 +27,18 @@ async function clickRail(page: Page, id: string) {
     .getByRole("button", { name: new RegExp(id, "i") })
     .click();
 }
+
+// The status bar asks a public echo service for the visitor's address. Stub it
+// so suites never depend on outbound network access.
+test.beforeEach(async ({ page }) => {
+  await page.route(/api\.ipify\.org/, (route) =>
+    route.fulfill({
+      status: 200,
+      contentType: "application/json",
+      body: JSON.stringify({ ip: "203.0.113.7" }),
+    }),
+  );
+});
 
 test.describe("shell navigation", () => {
   test("boots into the core view", async ({ page }) => {

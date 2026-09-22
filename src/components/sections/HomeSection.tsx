@@ -35,9 +35,18 @@ function Identity({ compact = false }: { compact?: boolean }) {
       >
         <Value>{portfolio.fullName}</Value>
       </h1>
+      {portfolio.alias.trim().length > 0 && (
+        <p
+          className="stagger-item mt-2 font-mono text-[11px] uppercase tracking-widest2 text-dim"
+          style={stagger(2)}
+          data-testid="operator-alias"
+        >
+          aka <span className="text-muted">{portfolio.alias}</span>
+        </p>
+      )}
       <p
         className="stagger-item mt-4 font-mono text-xs text-muted sm:text-sm"
-        style={stagger(2)}
+        style={stagger(3)}
       >
         <Value>{portfolio.primaryRole}</Value>
         <span className="mx-2 text-signal/50">{"//"}</span>
@@ -45,13 +54,13 @@ function Identity({ compact = false }: { compact?: boolean }) {
       </p>
       <p
         className="stagger-item mt-2.5 font-mono text-[10px] uppercase tracking-widest2 text-dim"
-        style={stagger(3)}
+        style={stagger(4)}
       >
         <Value>{portfolio.location}</Value>
         <span className="mx-2 text-hairlineBright">|</span>
         <Value>{portfolio.handle}</Value>
       </p>
-      <div className="stagger-item mt-7" style={stagger(4)}>
+      <div className="stagger-item mt-7" style={stagger(5)}>
         <PrimaryChannel />
       </div>
     </div>
@@ -76,7 +85,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
             style={{
               left: `${ANCHORS[index].x * 100}%`,
               top: `${ANCHORS[index].y * 100}%`,
-              ...stagger(index + 5, 90),
+              ...stagger(index + 6, 90),
             }}
           >
             <NavNode meta={VIEW_META[id]} onSelect={onNavigate} />
@@ -85,7 +94,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
 
         <p
           className="stagger-item absolute bottom-16 left-10 font-mono text-[10px] uppercase tracking-widest2 text-dim lg:left-16"
-          style={stagger(9)}
+          style={stagger(10)}
         >
           Select a node to route
         </p>
@@ -118,7 +127,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
               <div
                 key={id}
                 className="stagger-item relative"
-                style={stagger(index + 5, 90)}
+                style={stagger(index + 6, 90)}
               >
                 <span
                   aria-hidden="true"
