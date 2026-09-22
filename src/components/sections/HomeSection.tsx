@@ -107,8 +107,8 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
               y1="0"
               x2="11"
               y2="100%"
-              stroke="#2ff3c8"
-              strokeOpacity="0.2"
+              className="stroke-signal"
+              style={{ strokeOpacity: "var(--op-medium)" }}
               strokeWidth="1"
             />
           </svg>

@@ -8,25 +8,23 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      // Every colour resolves from a CSS variable so both themes share one set
+      // of utilities. Channels live in app/globals.css.
       colors: {
-        // Base surfaces. `void` is the mandated shell background.
-        void: "#020403",
-        panel: "#070c0a",
-        panelRaised: "#0b1310",
-        hairline: "#13241f",
-        hairlineBright: "#1f3a32",
+        void: "rgb(var(--void) / <alpha-value>)",
+        panel: "rgb(var(--panel) / <alpha-value>)",
+        panelRaised: "rgb(var(--panel-raised) / <alpha-value>)",
+        hairline: "rgb(var(--hairline) / <alpha-value>)",
+        hairlineBright: "rgb(var(--hairline-bright) / <alpha-value>)",
 
-        // Type
-        fg: "#c6d6cf",
-        muted: "#6b8279",
-        dim: "#3d5049",
+        fg: "rgb(var(--fg) / <alpha-value>)",
+        muted: "rgb(var(--muted) / <alpha-value>)",
+        dim: "rgb(var(--dim) / <alpha-value>)",
 
-        // Accents: security-console teal, Kali-leaning blue, Ubuntu-leaning
-        // amber, and a red reserved for critical status only.
-        signal: "#2ff3c8",
-        node: "#4a90f0",
-        alert: "#f0883e",
-        critical: "#ff5f56",
+        signal: "rgb(var(--signal) / <alpha-value>)",
+        node: "rgb(var(--node) / <alpha-value>)",
+        alert: "rgb(var(--alert) / <alpha-value>)",
+        critical: "rgb(var(--critical) / <alpha-value>)",
       },
       fontFamily: {
         mono: [

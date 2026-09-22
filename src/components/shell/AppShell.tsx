@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { portfolio } from "@/src/data/portfolio";
+import { useTheme } from "@/src/lib/theme";
 import {
   hashForView,
   titleForView,
@@ -25,6 +26,7 @@ export default function AppShell() {
   const [view, setView] = useState<ActiveView>("home");
   const [exiting, setExiting] = useState(false);
   const [hydrated, setHydrated] = useState(false);
+  const { theme, toggle: toggleTheme } = useTheme();
   const timeoutRef = useRef<number | null>(null);
   const viewRef = useRef<ActiveView>("home");
 
@@ -111,14 +113,20 @@ export default function AppShell() {
       className="relative h-[100dvh] w-screen overflow-hidden bg-void"
       data-testid="shell-root"
       data-hydrated={hydrated ? "true" : "false"}
+      data-theme-state={theme}
     >
       {/* React owns the title so it tracks the active view on deep links too. */}
       <title>{title}</title>
-      <NoiseLayer />
+      <NoiseLayer theme={theme} />
       <GridTraces view={view} />
-      <SystemCore view={view} />
-      <CursorLayer />
-      <ShellHeader view={view} onNavigate={navigate} />
+      <SystemCore view={view} theme={theme} />
+      <CursorLayer theme={theme} />
+      <ShellHeader
+        view={view}
+        onNavigate={navigate}
+        theme={theme}
+        onToggleTheme={toggleTheme}
+      />
 
       <main
         key={view}

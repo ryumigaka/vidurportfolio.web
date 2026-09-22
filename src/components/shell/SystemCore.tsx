@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { readAlpha, readToken, rgba, type Theme } from "@/src/lib/theme";
 import type { ActiveView } from "@/src/lib/views";
 
 const CENTER = 500;
@@ -83,9 +84,16 @@ const SPOKES = [
   "M 394 606 L 300 700 V 790",
 ];
 
-export default function SystemCore({ view }: { view: ActiveView }) {
+export default function SystemCore({
+  view,
+  theme,
+}: {
+  view: ActiveView;
+  theme: Theme;
+}) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // `theme` is a dependency because canvas colours are resolved once per run.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -95,6 +103,10 @@ export default function SystemCore({ view }: { view: ActiveView }) {
     const reduceMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
+
+    const signal = readToken("--signal", "47 243 200");
+    const sweepAlpha = readAlpha("--op-sweep", 0.14);
+    const edgeAlpha = readAlpha("--op-sweep-edge", 0.32);
 
     let size = 0;
     let frame = 0;
@@ -132,19 +144,19 @@ export default function SystemCore({ view }: { view: ActiveView }) {
       ctx.rotate(angle);
       if (typeof ctx.createConicGradient === "function") {
         const gradient = ctx.createConicGradient(0, 0, 0);
-        gradient.addColorStop(0, "rgba(47, 243, 200, 0.14)");
-        gradient.addColorStop(0.04, "rgba(47, 243, 200, 0.06)");
-        gradient.addColorStop(0.16, "rgba(47, 243, 200, 0)");
-        gradient.addColorStop(1, "rgba(47, 243, 200, 0)");
+        gradient.addColorStop(0, rgba(signal, sweepAlpha));
+        gradient.addColorStop(0.04, rgba(signal, sweepAlpha * 0.43));
+        gradient.addColorStop(0.16, rgba(signal, 0));
+        gradient.addColorStop(1, rgba(signal, 0));
         ctx.fillStyle = gradient;
       } else {
-        ctx.fillStyle = "rgba(47, 243, 200, 0.06)";
+        ctx.fillStyle = rgba(signal, sweepAlpha * 0.43);
       }
       ctx.beginPath();
       ctx.arc(0, 0, radius, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.strokeStyle = "rgba(47, 243, 200, 0.32)";
+      ctx.strokeStyle = rgba(signal, edgeAlpha);
       ctx.lineWidth = 1;
       ctx.beginPath();
       ctx.moveTo(0, 0);
@@ -166,11 +178,11 @@ export default function SystemCore({ view }: { view: ActiveView }) {
           const x = node.x * scale;
           const y = node.y * scale;
           ctx.beginPath();
-          ctx.fillStyle = `rgba(47, 243, 200, ${blips[i] * 0.85})`;
+          ctx.fillStyle = rgba(signal, blips[i] * 0.85);
           ctx.arc(x, y, 3.2, 0, Math.PI * 2);
           ctx.fill();
           ctx.beginPath();
-          ctx.strokeStyle = `rgba(47, 243, 200, ${blips[i] * 0.3})`;
+          ctx.strokeStyle = rgba(signal, blips[i] * 0.3);
           ctx.arc(x, y, 3.2 + (1 - blips[i]) * 16, 0, Math.PI * 2);
           ctx.stroke();
         }
@@ -209,7 +221,7 @@ export default function SystemCore({ view }: { view: ActiveView }) {
       observer.disconnect();
       document.removeEventListener("visibilitychange", onVisibility);
     };
-  }, []);
+  }, [theme]);
 
   const placement =
     view === "home"
@@ -227,14 +239,44 @@ export default function SystemCore({ view }: { view: ActiveView }) {
         <svg viewBox="0 0 1000 1000" className="absolute inset-0 h-full w-full">
           <defs>
             <radialGradient id="core-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#2ff3c8" stopOpacity="0.16" />
-              <stop offset="45%" stopColor="#2ff3c8" stopOpacity="0.03" />
-              <stop offset="100%" stopColor="#2ff3c8" stopOpacity="0" />
+              <stop
+                offset="0%"
+                style={{
+                  stopColor: "rgb(var(--signal))",
+                  stopOpacity: "var(--op-glow-core)",
+                }}
+              />
+              <stop
+                offset="45%"
+                style={{
+                  stopColor: "rgb(var(--signal))",
+                  stopOpacity: "calc(var(--op-glow-core) * 0.19)",
+                }}
+              />
+              <stop
+                offset="100%"
+                style={{ stopColor: "rgb(var(--signal))", stopOpacity: 0 }}
+              />
             </radialGradient>
             <radialGradient id="iris-glow" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stopColor="#2ff3c8" stopOpacity="0.5" />
-              <stop offset="70%" stopColor="#2ff3c8" stopOpacity="0.06" />
-              <stop offset="100%" stopColor="#2ff3c8" stopOpacity="0" />
+              <stop
+                offset="0%"
+                style={{
+                  stopColor: "rgb(var(--signal))",
+                  stopOpacity: "var(--op-glow-iris)",
+                }}
+              />
+              <stop
+                offset="70%"
+                style={{
+                  stopColor: "rgb(var(--signal))",
+                  stopOpacity: "calc(var(--op-glow-iris) * 0.12)",
+                }}
+              />
+              <stop
+                offset="100%"
+                style={{ stopColor: "rgb(var(--signal))", stopOpacity: 0 }}
+              />
             </radialGradient>
           </defs>
 
@@ -250,7 +292,7 @@ export default function SystemCore({ view }: { view: ActiveView }) {
               cy={CENTER}
               r="468"
               fill="none"
-              stroke="#1f3a32"
+              className="stroke-hairlineBright"
               strokeWidth="1"
             />
             {TICKS.map((tick) => (
@@ -260,8 +302,12 @@ export default function SystemCore({ view }: { view: ActiveView }) {
                 y1={tick.from.y}
                 x2={tick.to.x}
                 y2={tick.to.y}
-                stroke={tick.long ? "#2ff3c8" : "#1f3a32"}
-                strokeOpacity={tick.long ? 0.42 : 0.7}
+                className={
+                  tick.long ? "stroke-signal" : "stroke-hairlineBright"
+                }
+                style={{
+                  strokeOpacity: tick.long ? "var(--op-medium)" : 0.7,
+                }}
                 strokeWidth="1"
               />
             ))}
@@ -277,8 +323,8 @@ export default function SystemCore({ view }: { view: ActiveView }) {
               cy={CENTER}
               r="432"
               fill="none"
-              stroke="#4a90f0"
-              strokeOpacity="0.22"
+              className="stroke-node"
+              style={{ strokeOpacity: "var(--op-medium)" }}
               strokeWidth="1"
               strokeDasharray="2 14"
             />
@@ -294,8 +340,8 @@ export default function SystemCore({ view }: { view: ActiveView }) {
               cy={CENTER}
               r="392"
               fill="none"
-              stroke="#2ff3c8"
-              strokeOpacity="0.2"
+              className="stroke-signal"
+              style={{ strokeOpacity: "var(--op-medium)" }}
               strokeWidth="1.5"
               strokeDasharray="410 205"
             />
@@ -304,14 +350,19 @@ export default function SystemCore({ view }: { view: ActiveView }) {
               cy={CENTER}
               r="368"
               fill="none"
-              stroke="#1f3a32"
+              className="stroke-hairlineBright"
               strokeWidth="1"
               strokeDasharray="60 30"
             />
           </g>
 
           {/* Service runs */}
-          <g stroke="#2ff3c8" strokeOpacity="0.14" fill="none" strokeWidth="1">
+          <g
+            className="stroke-signal"
+            style={{ strokeOpacity: "var(--op-soft)" }}
+            fill="none"
+            strokeWidth="1"
+          >
             {SPOKES.map((d) => (
               <path key={d} d={d} />
             ))}
@@ -322,7 +373,11 @@ export default function SystemCore({ view }: { view: ActiveView }) {
             className="animate-coreSpinReverse"
             style={{ transformBox: "view-box", transformOrigin: "center" }}
           >
-            <g stroke="#4a90f0" strokeOpacity="0.2" strokeWidth="1">
+            <g
+              className="stroke-node"
+              style={{ strokeOpacity: "var(--op-medium)" }}
+              strokeWidth="1"
+            >
               {EDGES.map(([a, b]) => (
                 <line
                   key={`${a.x}-${a.y}-${b.x}-${b.y}`}
@@ -339,9 +394,8 @@ export default function SystemCore({ view }: { view: ActiveView }) {
                   cx={node.x}
                   cy={node.y}
                   r="4"
-                  fill="#020403"
-                  stroke="#2ff3c8"
-                  strokeOpacity="0.55"
+                  className="fill-void stroke-signal"
+                  style={{ strokeOpacity: "var(--op-strong)" }}
                 />
               </g>
             ))}
@@ -351,8 +405,8 @@ export default function SystemCore({ view }: { view: ActiveView }) {
                 cx={node.x}
                 cy={node.y}
                 r="2.5"
-                fill="#4a90f0"
-                fillOpacity="0.5"
+                className="fill-node"
+                style={{ fillOpacity: "var(--op-strong)" }}
               />
             ))}
           </g>
@@ -366,10 +420,14 @@ export default function SystemCore({ view }: { view: ActiveView }) {
               <path
                 key={d}
                 d={d}
-                fill="#2ff3c8"
-                fillOpacity={index % 2 === 0 ? 0.035 : 0.02}
-                stroke="#2ff3c8"
-                strokeOpacity="0.18"
+                className="fill-signal stroke-signal"
+                style={{
+                  fillOpacity:
+                    index % 2 === 0
+                      ? "var(--op-wash)"
+                      : "calc(var(--op-wash) * 0.6)",
+                  strokeOpacity: "var(--op-soft)",
+                }}
                 strokeWidth="1"
               />
             ))}
@@ -379,17 +437,15 @@ export default function SystemCore({ view }: { view: ActiveView }) {
           <circle cx={CENTER} cy={CENTER} r="96" fill="url(#iris-glow)" />
           <polygon
             points={HEX}
-            fill="#020403"
-            stroke="#2ff3c8"
-            strokeOpacity="0.6"
+            className="fill-void stroke-signal"
+            style={{ strokeOpacity: "var(--op-strong)" }}
             strokeWidth="1.5"
           />
           <circle
             cx={CENTER}
             cy={CENTER}
             r="6"
-            fill="#2ff3c8"
-            className="animate-blink"
+            className="animate-blink fill-signal"
           />
         </svg>
 

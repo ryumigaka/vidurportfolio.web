@@ -51,28 +51,26 @@ export default function ConnectorField({ anchors }: { anchors: Anchor[] }) {
                     y1={originY}
                     x2={x}
                     y2={y}
-                    stroke="#2ff3c8"
-                    strokeOpacity="0.18"
+                    className="stroke-signal"
+                    style={{ strokeOpacity: "var(--op-soft)" }}
                     strokeWidth="1"
                   />
                   <circle
                     cx={x}
                     cy={y}
                     r="3"
-                    fill="#020403"
-                    stroke="#2ff3c8"
-                    strokeOpacity="0.5"
+                    className="fill-void stroke-signal"
+                    style={{ strokeOpacity: "var(--op-strong)" }}
                     strokeWidth="1"
                   />
                   <circle
                     cx={originX}
                     cy={originY}
                     r="2"
-                    fill="#2ff3c8"
-                    fillOpacity="0.55"
-                    className="packet"
+                    className="packet fill-signal"
                     style={
                       {
+                        fillOpacity: "var(--op-strong)",
                         "--dx": `${x - originX}px`,
                         "--dy": `${y - originY}px`,
                         "--packet-delay": `${index * 1200}ms`,

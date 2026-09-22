@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { readToken, type Theme } from "@/src/lib/theme";
 
 const TILE = 128;
 
@@ -8,9 +9,10 @@ const TILE = 128;
  * Procedural film grain. A single noise tile is generated once and repeated as
  * a canvas pattern, so this costs one paint rather than a per-frame loop.
  */
-export default function NoiseLayer() {
+export default function NoiseLayer({ theme }: { theme: Theme }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
+  // White grain over near-black, dark grain over white.
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -23,9 +25,12 @@ export default function NoiseLayer() {
     const tileCtx = tile.getContext("2d");
     if (!tileCtx) return;
 
+    const tone = Number.parseInt(readToken("--grain-tone", "255"), 10);
+    const light = tone > 127;
+
     const image = tileCtx.createImageData(TILE, TILE);
     for (let i = 0; i < image.data.length; i += 4) {
-      const value = 120 + Math.random() * 135;
+      const value = light ? 120 + Math.random() * 135 : Math.random() * 90;
       image.data[i] = value;
       image.data[i + 1] = value;
       image.data[i + 2] = value;
@@ -58,14 +63,19 @@ export default function NoiseLayer() {
       cancelAnimationFrame(frame);
       window.removeEventListener("resize", onResize);
     };
-  }, []);
+  }, [theme]);
 
   return (
     <canvas
       ref={canvasRef}
       aria-hidden="true"
       data-testid="noise-layer"
-      className="pointer-events-none fixed inset-0 z-[1] h-full w-full opacity-60 mix-blend-soft-light"
+      style={{
+        opacity: "var(--grain-opacity)",
+        mixBlendMode:
+          "var(--grain-blend)" as React.CSSProperties["mixBlendMode"],
+      }}
+      className="pointer-events-none fixed inset-0 z-[1] h-full w-full"
     />
   );
 }

@@ -6,8 +6,9 @@ topology, circuit traces), three diagram-like navigation nodes wired to the
 core by thin SVG connectors, and animated transitions between full-screen
 sections.
 
-The aesthetic is security-research console rather than sci-fi pastiche — a
-Kali/Ubuntu-leaning dark palette, monospace readouts, and restrained motion.
+The aesthetic is security-research console rather than sci-fi pastiche —
+monospace readouts and restrained motion, in two themes: a Kali/Ubuntu-leaning
+dark mode and a red-on-white light mode that reads like plotter ink on paper.
 No Matrix rain, no glitch loops, no fake shell prompts.
 
 ## Fill in your content first
@@ -54,6 +55,7 @@ app/
 src/
   data/portfolio.ts         ← all content lives here
   lib/views.ts              view model: hashes, titles, metadata
+  lib/theme.ts              dark/light state, persistence, boot script
   lib/useMediaQuery.ts      external-store media queries
   lib/stagger.ts            reveal delays
   components/shell/
@@ -63,6 +65,7 @@ src/
     NoiseLayer.tsx          procedural film grain (canvas)
     CursorLayer.tsx         reticle cursor + particle trail (desktop only)
     ShellHeader.tsx         core return + section rail
+    ThemeToggle.tsx         two-position dark/light switch
     StatusBar.tsx           system status readout
   components/sections/      Home (nodes + connectors), Identity,
                             Operations, Signal
@@ -71,6 +74,23 @@ tests/
   unit/                     Vitest + Testing Library
   e2e/                      Playwright (desktop + mobile projects)
 ```
+
+### Theming
+
+Both themes come from one set of CSS variables in `app/globals.css`. Colours
+are stored as raw RGB channels so Tailwind's alpha modifiers keep working
+(`text-signal/60`), and line weights live on a separate opacity scale
+(`--op-faint` … `--op-strong`) because a stroke that reads as a hint on
+near-black becomes a solid line on white. Filled areas and glows have their own
+`--op-wash` scale for the same reason.
+
+Canvas layers cannot read CSS variables while drawing, so the sweep, particle
+trail and film grain resolve tokens at paint time and re-run when the theme
+changes — the grain even inverts, white over dark and black over light.
+
+Dark is the default; light is an explicit choice, remembered in `localStorage`
+and applied by a small inline script before first paint so a returning
+light-mode visitor never sees the dark shell flash first.
 
 ### Notable implementation details
 

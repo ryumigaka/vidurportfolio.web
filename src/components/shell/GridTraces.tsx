@@ -47,8 +47,8 @@ export default function GridTraces({ view }: { view: ActiveView }) {
             <path
               d="M48 0H0V48"
               fill="none"
-              stroke="#2ff3c8"
-              strokeOpacity="0.035"
+              className="stroke-signal"
+              style={{ strokeOpacity: "var(--op-faint)" }}
               strokeWidth="1"
             />
           </pattern>
@@ -61,14 +61,23 @@ export default function GridTraces({ view }: { view: ActiveView }) {
             <path
               d="M240 0H0V240"
               fill="none"
-              stroke="#4a90f0"
-              strokeOpacity="0.05"
+              className="stroke-node"
+              style={{ strokeOpacity: "var(--op-faint)" }}
               strokeWidth="1"
             />
           </pattern>
           <radialGradient id="grid-vignette" cx="50%" cy="50%" r="72%">
-            <stop offset="55%" stopColor="#020403" stopOpacity="0" />
-            <stop offset="100%" stopColor="#020403" stopOpacity="0.92" />
+            <stop
+              offset="55%"
+              style={{ stopColor: "rgb(var(--void))", stopOpacity: 0 }}
+            />
+            <stop
+              offset="100%"
+              style={{
+                stopColor: "rgb(var(--void))",
+                stopOpacity: "var(--op-vignette)",
+              }}
+            />
           </radialGradient>
         </defs>
         <rect width="100%" height="100%" fill="url(#grid-fine)" />
@@ -82,21 +91,27 @@ export default function GridTraces({ view }: { view: ActiveView }) {
         viewBox="0 0 1600 900"
         preserveAspectRatio="xMidYMid slice"
       >
-        <g stroke="#2ff3c8" fill="none" strokeWidth="1">
+        <g className="stroke-signal" fill="none" strokeWidth="1">
           {TRACES.map((d, index) => (
             <g key={d}>
-              <path d={d} strokeOpacity="0.09" />
+              <path d={d} style={{ strokeOpacity: "var(--op-hairline)" }} />
               <path
                 d={d}
-                strokeOpacity="0.5"
                 strokeDasharray="6 234"
                 className="animate-traceFlow"
-                style={{ animationDelay: `${index * -1.75}s` }}
+                style={{
+                  strokeOpacity: "var(--op-strong)",
+                  animationDelay: `${index * -1.75}s`,
+                }}
               />
             </g>
           ))}
         </g>
-        <g fill="none" stroke="#2ff3c8" strokeOpacity="0.16">
+        <g
+          fill="none"
+          className="stroke-signal"
+          style={{ strokeOpacity: "var(--op-soft)" }}
+        >
           {PADS.map((pad) => (
             <rect
               key={`${pad.x}-${pad.y}`}

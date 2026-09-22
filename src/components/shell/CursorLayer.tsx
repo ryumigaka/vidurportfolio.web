@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { readAlpha, readToken, rgba, type Theme } from "@/src/lib/theme";
 import { useMediaQuery } from "@/src/lib/useMediaQuery";
 
 interface Particle {
@@ -17,7 +18,7 @@ const MAX_PARTICLES = 64;
  * Reticle cursor plus a decaying particle trail. Only mounts on pointer-capable
  * desktop; touch devices keep their native behaviour entirely.
  */
-export default function CursorLayer() {
+export default function CursorLayer({ theme }: { theme: Theme }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const reticleRef = useRef<HTMLDivElement>(null);
   const readoutRef = useRef<HTMLSpanElement>(null);
@@ -36,6 +37,9 @@ export default function CursorLayer() {
     if (!ctx) return;
 
     document.documentElement.classList.add("custom-cursor");
+
+    const signal = readToken("--signal", "47 243 200");
+    const trailAlpha = readAlpha("--op-trail", 0.4);
 
     const particles: Particle[] = [];
     let pointerX = window.innerWidth / 2;
@@ -108,7 +112,7 @@ export default function CursorLayer() {
           particles.splice(i, 1);
           continue;
         }
-        ctx.fillStyle = `rgba(47, 243, 200, ${particle.life * 0.4})`;
+        ctx.fillStyle = rgba(signal, particle.life * trailAlpha);
         ctx.fillRect(
           particle.x - particle.size / 2,
           particle.y - particle.size / 2,
@@ -135,7 +139,7 @@ export default function CursorLayer() {
       document.removeEventListener("pointerleave", onPointerLeave);
       document.documentElement.classList.remove("custom-cursor");
     };
-  }, [enabled]);
+  }, [enabled, theme]);
 
   if (!enabled) return null;
 
