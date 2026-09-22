@@ -1,78 +1,114 @@
-# vidur.dev (working title)
+# Portfolio — system console
 
-A personal portfolio site built with Next.js (App Router), TypeScript, and
-Tailwind CSS, styled as a terminal / hacker aesthetic — monospace type,
-dark background, `$`-prompt section headers, and a typing-animation hero.
+A single-screen personal portfolio built as an interactive systems console:
+one persistent full-screen visual world (radar bezel, iris aperture, network
+topology, circuit traces), three diagram-like navigation nodes wired to the
+core by thin SVG connectors, and animated transitions between full-screen
+sections.
 
-Every project is an equal-weight card generated from a single content file,
-so adding, editing, or removing a project never touches layout code.
+The aesthetic is security-research console rather than sci-fi pastiche — a
+Kali/Ubuntu-leaning dark palette, monospace readouts, and restrained motion.
+No Matrix rain, no glitch loops, no fake shell prompts.
 
-## Before you deploy
+## Fill in your content first
 
-**Read [`NEEDS_FROM_YOU.md`](./NEEDS_FROM_YOU.md).** The site builds and
-runs today, but a lot of the project detail and every social link is a
-placeholder marked `[ADD: ...]` or `todo: true` — that file is the full
-checklist of what to fill in before this goes live.
+**Everything on the site comes from one file: [`src/data/portfolio.ts`](src/data/portfolio.ts).**
 
-## Tech stack
+Every value there is a placeholder token such as `[FULL_NAME]`, `[HANDLE]`,
+`[SHORT_BIO]`, `[GITHUB_URL]`, `[PROJECT_TITLE]`. Replace the tokens and the
+whole site updates — no component needs editing. Unreplaced tokens render
+dimmed on purpose, and links stay inert until their value is real, so nothing
+ships as a dead link.
 
-- [Next.js 16](https://nextjs.org/) (App Router, static generation)
-- TypeScript
-- Tailwind CSS v3
-- [`lucide-react`](https://lucide.dev/) for the couple of generic (non-brand)
-  icons used in the UI
+```
+src/data/portfolio.ts
+├── identity     fullName, handle, primaryRole, secondaryRole, shortBio,
+│                location, email, resumePath, profileImagePath
+├── links        githubUrl, linkedinUrl, xUrl
+├── focusAreas   short capability lines shown on Identity
+└── projects[]   title, description, technologies[], url, repository,
+                 status, period
+```
 
-No backend, database, or API routes — every project page is statically
-generated at build time from `content/projects.ts`.
+Add or remove entries in `projects` freely — the Operations list is generated
+from the array.
 
-## Project structure
+## Architecture
+
+Four application states drive one persistent shell:
+
+| View       | URL            | Document title             |
+| ---------- | -------------- | -------------------------- |
+| Home       | `/`            | `[FULL_NAME] — Portfolio`  |
+| Identity   | `/#identity`   | `Identity — [FULL_NAME]`   |
+| Operations | `/#operations` | `Operations — [FULL_NAME]` |
+| Signal     | `/#signal`     | `Signal — [FULL_NAME]`     |
+
+Browser back/forward restore the active section, deep links land directly on
+it, and `Escape` returns to the core.
 
 ```
 app/
-  layout.tsx              root layout, font loading, nav/footer
-  page.tsx                homepage: hero, about, project grid, connect
-  globals.css              theme tokens + terminal effects
-  projects/[slug]/page.tsx  individual project case-study pages
-  not-found.tsx            404 page
-content/
-  site.ts                  your name, tagline, bio, social links
-  projects.ts               every project card + case study, one array
-components/
-  Terminal.tsx              typing-animation hero
-  Nav.tsx / Footer.tsx
-  ProjectsExplorer.tsx       tag filter + grid (client component)
-  ProjectCard.tsx
-  SocialLinks.tsx
+  layout.tsx                fonts, viewport, global styles
+  page.tsx                  renders the shell
+src/
+  data/portfolio.ts         ← all content lives here
+  lib/views.ts              view model: hashes, titles, metadata
+  lib/useMediaQuery.ts      external-store media queries
+  lib/stagger.ts            reveal delays
+  components/shell/
+    AppShell.tsx            view state machine, hash sync, transitions
+    SystemCore.tsx          SVG geometry + canvas radar sweep
+    GridTraces.tsx          grid and circuit runs
+    NoiseLayer.tsx          procedural film grain (canvas)
+    CursorLayer.tsx         reticle cursor + particle trail (desktop only)
+    ShellHeader.tsx         core return + section rail
+    StatusBar.tsx           system status readout
+  components/sections/      Home (nodes + connectors), Identity,
+                            Operations, Signal
+  components/ui/            SectionFrame, Value
+tests/
+  unit/                     Vitest + Testing Library
+  e2e/                      Playwright (desktop + mobile projects)
 ```
 
-To edit content, you only ever need to touch the two files in `content/`.
+### Notable implementation details
 
-## Running locally
+- **The core is persistent.** It never unmounts between views; it translates,
+  scales and dims, so navigation reads as one continuous world.
+- **The title is owned by React**, not written imperatively. Next's static
+  metadata would otherwise re-apply itself over a deep-linked title after
+  hydration.
+- **Connectors are measured in pixel space** rather than a stretched viewBox,
+  which keeps strokes hairline-thin and travelling packets circular at any
+  aspect ratio.
+- **Desktop and mobile are different compositions**, not one reflowed layout:
+  the desktop orbits nodes around the core, mobile stacks them along a spine.
+- **Motion respects `prefers-reduced-motion`** — the sweep, trail and reveals
+  stand down, and the custom cursor never mounts.
+- Animation is CSS keyframes and Canvas 2D only. No animation libraries.
+
+## Commands
 
 ```bash
 npm install
-npm run dev
+npm run dev          # http://localhost:3000
+npm run build        # production build
+npm start            # serve the build
+
+npm test             # Vitest unit tests
+npm run test:watch
+npm run test:e2e     # Playwright, builds and serves automatically
+npm run lint
+npm run format
+npm run typecheck
 ```
 
-Then open http://localhost:3000.
-
-## Building
-
-```bash
-npm run build
-npm run start
-```
+Playwright needs browsers once: `npx playwright install chromium`. If your
+environment already ships one, point at it with
+`PLAYWRIGHT_CHROMIUM_PATH=/path/to/chromium npm run test:e2e`.
 
 ## Deploying
 
-This is a stock Next.js App Router project, so it deploys to
-[Vercel](https://vercel.com/new) with zero configuration: import the GitHub
-repo, leave the defaults, deploy. (Vercel account creation and the actual
-import step need to happen on your end — this repo doesn't include any
-deploy credentials.)
-
-If you'd rather use GitHub Pages or another static host instead, the site
-would need `output: "export"` added to `next.config.mjs` — ask and I can
-wire that up, but note it would remove any future use of Next.js features
-that require a server (there aren't any today, so it's a safe switch if you
-want it).
+Standard Next.js App Router project — import the repo at
+[vercel.com/new](https://vercel.com/new) and deploy with the defaults.

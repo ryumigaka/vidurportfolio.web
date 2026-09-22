@@ -1,19 +1,32 @@
-import type { Metadata } from "next";
-import { JetBrains_Mono } from "next/font/google";
+import type { Metadata, Viewport } from "next";
+import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
 import "./globals.css";
-import { site } from "@/content/site";
-import Nav from "@/components/Nav";
-import Footer from "@/components/Footer";
+import { portfolio } from "@/src/data/portfolio";
 
-const jetbrainsMono = JetBrains_Mono({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
 });
 
+const display = Space_Grotesk({
+  subsets: ["latin"],
+  variable: "--font-display",
+  weight: ["500", "600", "700"],
+  display: "swap",
+});
+
+// No `title` here on purpose: the active view owns the document title, and a
+// static metadata title would be re-applied over it after hydration.
 export const metadata: Metadata = {
-  title: `${site.name} — ${site.role}`,
-  description: site.tagline,
+  description: portfolio.shortBio,
+};
+
+export const viewport: Viewport = {
+  themeColor: "#020403",
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 1,
 };
 
 export default function RootLayout({
@@ -22,14 +35,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={jetbrainsMono.variable}>
-      <body className="min-h-screen bg-bg text-fg antialiased">
-        <div className="crt-overlay" aria-hidden="true" />
-        <div className="mx-auto flex min-h-screen max-w-3xl flex-col px-5 sm:px-8">
-          <Nav />
-          <main className="flex-1">{children}</main>
-          <Footer />
-        </div>
+    <html lang="en" className={`${mono.variable} ${display.variable}`}>
+      <body className="h-[100dvh] w-screen overflow-hidden bg-void text-fg antialiased">
+        {children}
       </body>
     </html>
   );
