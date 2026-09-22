@@ -50,7 +50,7 @@ export const portfolio: PortfolioData = {
   secondaryRole: "[SECONDARY_ROLE]",
   shortBio: "[SHORT_BIO]",
   location: "[LOCATION]",
-  email: "[EMAIL]",
+  email: "vidursharma25.08.08@gmail.com",
   resumePath: "[RESUME_PATH]",
   profileImagePath: "[PROFILE_IMAGE_PATH]",
   githubUrl: "[GITHUB_URL]",

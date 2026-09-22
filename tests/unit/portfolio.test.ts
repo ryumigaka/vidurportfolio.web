@@ -29,7 +29,7 @@ describe("isResolvedLink", () => {
 });
 
 describe("portfolio data contract", () => {
-  it("ships with no real personal data, only placeholders", () => {
+  it("has every identity field either filled in or a labelled placeholder", () => {
     const identityFields = [
       portfolio.fullName,
       portfolio.handle,
@@ -45,8 +45,15 @@ describe("portfolio data contract", () => {
       portfolio.xUrl,
     ];
     for (const field of identityFields) {
-      expect(isPlaceholder(field)).toBe(true);
+      // Never half-filled: a field is a token awaiting content, or real content.
+      expect(field.trim().length).toBeGreaterThan(0);
+      expect(isPlaceholder(field) || isResolvedLink(field)).toBe(true);
     }
+  });
+
+  it("exposes a contactable address for the primary call to action", () => {
+    expect(isResolvedLink(portfolio.email)).toBe(true);
+    expect(portfolio.email).toMatch(/^[^@\s]+@[^@\s]+\.[^@\s]+$/);
   });
 
   it("exposes at least one project with every field present", () => {

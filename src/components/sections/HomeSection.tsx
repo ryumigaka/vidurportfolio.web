@@ -6,6 +6,7 @@ import { NODE_VIEWS, VIEW_META, type ActiveView } from "@/src/lib/views";
 import Value from "@/src/components/ui/Value";
 import ConnectorField, { type Anchor } from "./ConnectorField";
 import NavNode from "./NavNode";
+import PrimaryChannel from "./PrimaryChannel";
 
 /** Node placement on desktop, as fractions of the viewport box. */
 const ANCHORS: Anchor[] = [
@@ -50,6 +51,9 @@ function Identity({ compact = false }: { compact?: boolean }) {
         <span className="mx-2 text-hairlineBright">|</span>
         <Value>{portfolio.handle}</Value>
       </p>
+      <div className="stagger-item mt-7" style={stagger(4)}>
+        <PrimaryChannel />
+      </div>
     </div>
   );
 }
@@ -72,7 +76,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
             style={{
               left: `${ANCHORS[index].x * 100}%`,
               top: `${ANCHORS[index].y * 100}%`,
-              ...stagger(index + 4, 90),
+              ...stagger(index + 5, 90),
             }}
           >
             <NavNode meta={VIEW_META[id]} onSelect={onNavigate} />
@@ -81,9 +85,9 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
 
         <p
           className="stagger-item absolute bottom-16 left-10 font-mono text-[10px] uppercase tracking-widest2 text-dim lg:left-16"
-          style={stagger(8)}
+          style={stagger(9)}
         >
-          Select a node to open channel
+          Select a node to route
         </p>
       </div>
 
@@ -114,7 +118,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
               <div
                 key={id}
                 className="stagger-item relative"
-                style={stagger(index + 4, 90)}
+                style={stagger(index + 5, 90)}
               >
                 <span
                   aria-hidden="true"

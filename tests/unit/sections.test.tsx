@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import IdentitySection from "@/src/components/sections/IdentitySection";
 import OperationsSection from "@/src/components/sections/OperationsSection";
+import PrimaryChannel from "@/src/components/sections/PrimaryChannel";
 import SignalSection from "@/src/components/sections/SignalSection";
 import { portfolio } from "@/src/data/portfolio";
 
@@ -50,11 +51,29 @@ describe("SignalSection", () => {
     expect(screen.getAllByTestId("signal-channel")).toHaveLength(4);
   });
 
-  it("renders unresolved channels as non-interactive", () => {
+  it("makes the resolved email channel a real mailto link", () => {
     render(<SignalSection />);
-    expect(screen.queryAllByRole("link")).toHaveLength(0);
-    for (const row of screen.getAllByTestId("signal-channel")) {
-      expect(row.firstElementChild).toHaveAttribute("aria-disabled", "true");
-    }
+    const mailto = screen.getByRole("link");
+    expect(mailto).toHaveAttribute("href", `mailto:${portfolio.email}`);
+    expect(mailto).not.toHaveAttribute("target");
+  });
+
+  it("leaves channels without a value non-interactive", () => {
+    render(<SignalSection />);
+    const rows = screen.getAllByTestId("signal-channel");
+    const inert = rows.filter(
+      (row) => row.firstElementChild?.getAttribute("aria-disabled") === "true",
+    );
+    // Everything except the email channel is still an unset placeholder.
+    expect(inert).toHaveLength(rows.length - 1);
+  });
+});
+
+describe("PrimaryChannel", () => {
+  it("is a mailto call to action once an address is set", () => {
+    render(<PrimaryChannel />);
+    const cta = screen.getByTestId("primary-channel");
+    expect(cta).toHaveAttribute("href", `mailto:${portfolio.email}`);
+    expect(cta).toHaveTextContent(portfolio.email);
   });
 });

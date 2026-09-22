@@ -107,6 +107,15 @@ test.describe("shell navigation", () => {
     );
   });
 
+  test("the core offers a working mailto call to action", async ({ page }) => {
+    await open(page, "/");
+
+    const cta = page.locator('[data-testid="primary-channel"]:visible').first();
+    await expect(cta).toBeVisible();
+    const href = await cta.getAttribute("href");
+    expect(href).toMatch(/^mailto:.+@.+\..+$/);
+  });
+
   test("an unknown hash falls back to the core", async ({ page }) => {
     await open(page, "/#not-a-real-view");
     await expect(page.getByTestId("view-root")).toHaveAttribute(
