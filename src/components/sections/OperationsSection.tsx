@@ -30,16 +30,16 @@ export default function OperationsSection() {
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h2 className="font-display text-sm uppercase tracking-[0.18em] text-fg transition-colors duration-300 group-hover:text-signal sm:text-base">
-                    <Value>{project.title}</Value>
+                    <Value delay={index * 70}>{project.title}</Value>
                   </h2>
                 </div>
                 <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest2 text-dim">
-                  <Value>{project.period}</Value>
+                  <Value delay={index * 70 + 40}>{project.period}</Value>
                 </span>
               </div>
 
               <p className="mt-2.5 max-w-[60ch] text-sm leading-relaxed text-muted">
-                <Value>{project.description}</Value>
+                <Value delay={index * 70 + 90}>{project.description}</Value>
               </p>
 
               <div className="mt-3 flex flex-wrap items-center gap-1.5">
@@ -48,11 +48,13 @@ export default function OperationsSection() {
                     key={`${tech}-${techIndex}`}
                     className="border border-hairline px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest2 text-dim"
                   >
-                    <Value>{tech}</Value>
+                    <Value delay={index * 70 + 140 + techIndex * 40}>
+                      {tech}
+                    </Value>
                   </span>
                 ))}
                 <span className="ml-auto font-mono text-[9px] uppercase tracking-widest2 text-dim/80">
-                  <Value>{project.status}</Value>
+                  <Value delay={index * 70 + 180}>{project.status}</Value>
                 </span>
               </div>
 

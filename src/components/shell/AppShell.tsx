@@ -120,7 +120,7 @@ export default function AppShell() {
       <NoiseLayer theme={theme} />
       <GridTraces view={view} />
       <SystemCore view={view} theme={theme} />
-      <CursorLayer theme={theme} />
+      <CursorLayer />
       <ShellHeader
         view={view}
         onNavigate={navigate}

@@ -41,14 +41,15 @@ export interface PortfolioData {
   githubUrl: string;
   linkedinUrl: string;
   xUrl: string;
+  instagramUrl: string;
   /** Short lines rendered as a capability/credential readout on Identity. */
   focusAreas: string[];
   projects: Project[];
 }
 
 export const portfolio: PortfolioData = {
-  fullName: "Ryumigaka",
-  alias: "Vidur",
+  fullName: "Vidur",
+  alias: "Ryumigaka",
   handle: "ryumigaka",
   primaryRole: "[PRIMARY_ROLE]",
   secondaryRole: "[SECONDARY_ROLE]",
@@ -58,8 +59,9 @@ export const portfolio: PortfolioData = {
   resumePath: "[RESUME_PATH]",
   profileImagePath: "[PROFILE_IMAGE_PATH]",
   githubUrl: "https://github.com/ryumigaka",
-  linkedinUrl: "[LINKEDIN_URL]",
+  linkedinUrl: "https://www.linkedin.com/in/vidursharma25kagehiko/",
   xUrl: "[X_URL]",
+  instagramUrl: "https://www.instagram.com/ryumigakaplays/",
 
   focusAreas: [
     "[FOCUS_AREA_1]",

@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { stagger } from "@/src/lib/stagger";
 import { VIEW_META, type ActiveView } from "@/src/lib/views";
+import DecodeText from "./DecodeText";
 
 interface SectionFrameProps {
   view: Exclude<ActiveView, "home">;
@@ -25,11 +26,11 @@ export default function SectionFrame({ view, children }: SectionFrameProps) {
               id={`${view}-heading`}
               className="font-display text-2xl uppercase tracking-[0.18em] text-fg sm:text-3xl"
             >
-              {meta.label}
+              <DecodeText text={meta.label} />
             </h1>
           </div>
           <p className="mt-1.5 font-mono text-[10px] uppercase tracking-widest2 text-dim">
-            {meta.caption}
+            <DecodeText text={meta.caption} delay={120} />
           </p>
           <div className="hairline-x mt-4 h-px w-full" />
         </header>

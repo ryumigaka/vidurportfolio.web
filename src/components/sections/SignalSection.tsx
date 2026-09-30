@@ -31,6 +31,12 @@ const channels: Channel[] = [
   },
   {
     code: "CH-04",
+    label: "Broadcast",
+    value: portfolio.instagramUrl,
+    href: portfolio.instagramUrl,
+  },
+  {
+    code: "CH-05",
     label: "Feed",
     value: portfolio.xUrl,
     href: portfolio.xUrl,
@@ -56,7 +62,7 @@ export default function SignalSection() {
               </div>
               <div className="flex items-center gap-3">
                 <span className="max-w-[14rem] truncate font-mono text-[11px] text-muted sm:max-w-[22rem]">
-                  <Value>{channel.value}</Value>
+                  <Value delay={index * 80}>{channel.value}</Value>
                 </span>
                 <span
                   aria-hidden="true"

@@ -25,6 +25,36 @@ if (!window.matchMedia) {
 // call; returning null matches the guard every canvas component already has.
 window.HTMLCanvasElement.prototype.getContext = vi.fn(() => null) as never;
 
+// jsdom ships no IntersectionObserver. This stub reports the target as visible
+// straight away so scroll-triggered reveals run in tests.
+if (typeof globalThis.IntersectionObserver === "undefined") {
+  class IntersectionObserverStub {
+    readonly root = null;
+    readonly rootMargin = "";
+    readonly thresholds: number[] = [];
+    private callback: IntersectionObserverCallback;
+
+    constructor(callback: IntersectionObserverCallback) {
+      this.callback = callback;
+    }
+
+    observe(target: Element) {
+      this.callback(
+        [{ isIntersecting: true, target } as IntersectionObserverEntry],
+        this as unknown as IntersectionObserver,
+      );
+    }
+
+    unobserve() {}
+    disconnect() {}
+    takeRecords(): IntersectionObserverEntry[] {
+      return [];
+    }
+  }
+  globalThis.IntersectionObserver =
+    IntersectionObserverStub as unknown as typeof IntersectionObserver;
+}
+
 if (typeof globalThis.ResizeObserver === "undefined") {
   class ResizeObserverStub {
     observe() {}

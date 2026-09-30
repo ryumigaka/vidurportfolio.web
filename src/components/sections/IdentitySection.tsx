@@ -87,7 +87,7 @@ export default function IdentitySection() {
                 className="flex items-center gap-3 font-mono text-xs text-muted"
               >
                 <span className="h-px w-4 bg-signal/40" />
-                <Value>{area}</Value>
+                <Value delay={index * 90}>{area}</Value>
               </li>
             ))}
           </ul>

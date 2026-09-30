@@ -48,7 +48,7 @@ describe("OperationsSection", () => {
 describe("SignalSection", () => {
   it("renders one row per channel", () => {
     render(<SignalSection />);
-    expect(screen.getAllByTestId("signal-channel")).toHaveLength(4);
+    expect(screen.getAllByTestId("signal-channel")).toHaveLength(5);
   });
 
   it("opens the email channel in the mail client, not a new tab", () => {
@@ -66,6 +66,7 @@ describe("SignalSection", () => {
       portfolio.email,
       portfolio.githubUrl,
       portfolio.linkedinUrl,
+      portfolio.instagramUrl,
       portfolio.xUrl,
     ].filter((value) => isResolvedLink(value));
 

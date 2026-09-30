@@ -54,8 +54,8 @@ describe("StatusBar visitor address", () => {
 
 describe("operator identity", () => {
   it("carries both the handle and the civilian name", () => {
-    expect(portfolio.fullName).toBe("Ryumigaka");
-    expect(portfolio.alias).toBe("Vidur");
+    expect(portfolio.fullName).toBe("Vidur");
+    expect(portfolio.alias).toBe("Ryumigaka");
     expect(portfolio.handle).toBe("ryumigaka");
   });
 });
