@@ -25,6 +25,14 @@ export interface Project {
   period: string;
 }
 
+export interface Experience {
+  company: string;
+  role: string;
+  period: string;
+  /** What you did there, in your own words. */
+  summary: string;
+}
+
 export interface PortfolioData {
   /** The name shown large on the core view. */
   fullName: string;
@@ -45,6 +53,7 @@ export interface PortfolioData {
   /** Short lines rendered as a capability/credential readout on Identity. */
   focusAreas: string[];
   projects: Project[];
+  experience: Experience[];
 }
 
 export const portfolio: PortfolioData = {
@@ -53,7 +62,8 @@ export const portfolio: PortfolioData = {
   handle: "ryumigaka",
   primaryRole: "Innovator",
   secondaryRole: "[SECONDARY_ROLE]",
-  shortBio: "[SHORT_BIO]",
+  shortBio:
+    "I love music and playing guitar. I play all sports and I\u2019m best at badminton. Above all I\u2019m driven by innovating and building things that help others and are genuinely useful.",
   location: "[LOCATION]",
   email: "vidursharma25.08.08@gmail.com",
   resumePath: "[RESUME_PATH]",
@@ -70,27 +80,23 @@ export const portfolio: PortfolioData = {
     "[FOCUS_AREA_4]",
   ],
 
+  experience: [
+    {
+      company: "Veda Biosciences",
+      role: "[EXPERIENCE_ROLE]",
+      period: "[EXPERIENCE_PERIOD]",
+      summary:
+        "Worked closely with different brands to help them build trust and improve customer retention, and helped the founder gain traction in the company\u2019s early days.",
+    },
+    {
+      company: "Aeyron Health",
+      role: "Intern",
+      period: "[EXPERIENCE_PERIOD]",
+      summary: "[EXPERIENCE_SUMMARY]",
+    },
+  ],
+
   projects: [
-    {
-      title: "Wingmate",
-      description:
-        "AI study-abroad guide for students from India and South Asia: a programme directory across seven countries with dated tuition figures, a budget calculator in rupees, document tracking and application checklists.",
-      technologies: ["[PROJECT_TECHNOLOGIES]"],
-      url: "https://wingmate.online/",
-      repository: "[PROJECT_REPOSITORY]",
-      status: "early access",
-      period: "[PROJECT_PERIOD]",
-    },
-    {
-      title: "Amruta",
-      description:
-        "Online therapy service for the UK that matches each person to a therapist.",
-      technologies: ["[PROJECT_TECHNOLOGIES]"],
-      url: "https://amruta-web-theta.vercel.app/",
-      repository: "[PROJECT_REPOSITORY]",
-      status: "[PROJECT_STATUS]",
-      period: "[PROJECT_PERIOD]",
-    },
     {
       title: "Wingmate",
       description:

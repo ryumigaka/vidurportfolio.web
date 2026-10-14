@@ -1,6 +1,9 @@
 import { portfolio, isResolvedLink } from "@/src/data/portfolio";
 import { stagger } from "@/src/lib/stagger";
 import SectionFrame from "@/src/components/ui/SectionFrame";
+import SocialIcon, {
+  type SocialIconName,
+} from "@/src/components/ui/SocialIcon";
 import Value from "@/src/components/ui/Value";
 
 function ProfileFrame() {
@@ -44,6 +47,13 @@ function Field({ label, value }: { label: string; value: string }) {
     </div>
   );
 }
+
+const socials: { label: string; icon: SocialIconName; href: string }[] = [
+  { label: "GitHub", icon: "github", href: portfolio.githubUrl },
+  { label: "LinkedIn", icon: "linkedin", href: portfolio.linkedinUrl },
+  { label: "Instagram", icon: "instagram", href: portfolio.instagramUrl },
+  { label: "X", icon: "x", href: portfolio.xUrl },
+].filter((item) => isResolvedLink(item.href)) as never;
 
 export default function IdentitySection() {
   const resumeReady = isResolvedLink(portfolio.resumePath);
@@ -94,6 +104,56 @@ export default function IdentitySection() {
         </div>
 
         <div className="stagger-item" style={stagger(4)}>
+          <p className="label">Experience</p>
+          <ol className="mt-3 flex flex-col gap-4">
+            {portfolio.experience.map((job, index) => (
+              <li
+                key={`${job.company}-${index}`}
+                data-testid="experience-entry"
+                className="border-l border-hairline pl-3"
+              >
+                <div className="flex items-baseline justify-between gap-3">
+                  <p className="font-display text-xs uppercase tracking-[0.18em] text-fg">
+                    <Value delay={index * 80}>{job.company}</Value>
+                  </p>
+                  <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest2 text-dim">
+                    <Value delay={index * 80 + 40}>{job.period}</Value>
+                  </span>
+                </div>
+                <p className="mt-1 font-mono text-[11px] text-signal/80">
+                  <Value delay={index * 80 + 60}>{job.role}</Value>
+                </p>
+                <p className="mt-1.5 text-sm leading-relaxed text-muted">
+                  <Value delay={index * 80 + 100}>{job.summary}</Value>
+                </p>
+              </li>
+            ))}
+          </ol>
+        </div>
+
+        <div className="stagger-item" style={stagger(5)}>
+          <p className="label">Links</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {socials.map((item) => (
+              <li key={item.label}>
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={item.label}
+                  data-testid="social-link"
+                  data-cursor-target
+                  className="inline-flex items-center gap-2 border border-hairline px-3 py-2 font-mono text-[11px] uppercase tracking-widest2 text-muted transition-colors hover:border-signal/50 hover:text-signal"
+                >
+                  <SocialIcon name={item.icon} />
+                  {item.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div className="stagger-item" style={stagger(6)}>
           <p className="label">Dossier</p>
           {resumeReady ? (
             <a

@@ -1,10 +1,14 @@
 import { portfolio, isResolvedLink } from "@/src/data/portfolio";
 import { stagger } from "@/src/lib/stagger";
 import SectionFrame from "@/src/components/ui/SectionFrame";
+import SocialIcon, {
+  type SocialIconName,
+} from "@/src/components/ui/SocialIcon";
 import Value from "@/src/components/ui/Value";
 
 interface Channel {
   code: string;
+  icon: SocialIconName;
   label: string;
   value: string;
   href: string;
@@ -13,30 +17,35 @@ interface Channel {
 const channels: Channel[] = [
   {
     code: "CH-01",
+    icon: "mail",
     label: "Direct",
     value: portfolio.email,
     href: isResolvedLink(portfolio.email) ? `mailto:${portfolio.email}` : "",
   },
   {
     code: "CH-02",
+    icon: "github",
     label: "Repositories",
     value: portfolio.githubUrl,
     href: portfolio.githubUrl,
   },
   {
     code: "CH-03",
+    icon: "linkedin",
     label: "Network",
     value: portfolio.linkedinUrl,
     href: portfolio.linkedinUrl,
   },
   {
     code: "CH-04",
+    icon: "instagram",
     label: "Broadcast",
     value: portfolio.instagramUrl,
     href: portfolio.instagramUrl,
   },
   {
     code: "CH-05",
+    icon: "x",
     label: "Feed",
     value: portfolio.xUrl,
     href: portfolio.xUrl,
@@ -56,6 +65,10 @@ export default function SignalSection() {
                 <span className="font-mono text-[10px] tracking-widest2 text-signal/60">
                   {channel.code}
                 </span>
+                <SocialIcon
+                  name={channel.icon}
+                  className="h-4 w-4 text-signal/70 transition-colors group-hover:text-signal"
+                />
                 <span className="font-display text-sm uppercase tracking-[0.18em] text-fg transition-colors duration-300 group-hover:text-signal">
                   {channel.label}
                 </span>
