@@ -28,7 +28,7 @@ export default function ShellHeader({
         data-cursor-target
         data-testid="core-return"
         aria-label="Return to core"
-        className="group pointer-events-auto flex items-center gap-2.5 font-mono text-[11px] uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
+        className="group pointer-events-auto flex items-center gap-2.5 font-mono text-[13px] uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
       >
         <svg width="16" height="18" viewBox="0 0 16 18" aria-hidden="true">
           <polygon
@@ -62,18 +62,18 @@ export default function ShellHeader({
                 onClick={() => onNavigate(id)}
                 aria-label={meta.label}
                 aria-current={active ? "page" : undefined}
-                className={`border px-2.5 py-1.5 font-mono text-[10px] uppercase tracking-widest2 transition-colors sm:px-3 ${
+                className={`border px-2.5 py-1.5 font-mono text-xs uppercase tracking-widest2 transition-colors sm:px-3 ${
                   active
                     ? "border-signal/50 text-signal"
                     : "border-hairline text-dim hover:border-hairlineBright hover:text-muted"
                 }`}
               >
-                <span className="text-[9px] opacity-60">{meta.code}</span>
+                <span className="text-xs opacity-60">{meta.code}</span>
                 <span className="ml-1.5 hidden sm:inline">{meta.label}</span>
               </button>
             );
           })}
-          <span className="ml-2 hidden font-mono text-[9px] uppercase tracking-widest2 text-dim lg:inline">
+          <span className="ml-2 hidden font-mono text-xs uppercase tracking-widest2 text-dim lg:inline">
             esc ↩ core
           </span>
         </nav>

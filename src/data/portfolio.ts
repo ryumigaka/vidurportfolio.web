@@ -64,7 +64,7 @@ export const portfolio: PortfolioData = {
   secondaryRole: "[SECONDARY_ROLE]",
   shortBio:
     "I love music and playing guitar. I play all sports and I\u2019m best at badminton. Above all I\u2019m driven by innovating and building things that help others and are genuinely useful.",
-  location: "[LOCATION]",
+  location: "Earth",
   email: "vidursharma25.08.08@gmail.com",
   resumePath: "[RESUME_PATH]",
   profileImagePath: "[PROFILE_IMAGE_PATH]",
@@ -83,15 +83,15 @@ export const portfolio: PortfolioData = {
   experience: [
     {
       company: "Veda Biosciences",
-      role: "[EXPERIENCE_ROLE]",
-      period: "[EXPERIENCE_PERIOD]",
+      role: "Design Intern",
+      period: "90 days",
       summary:
         "Worked closely with different brands to help them build trust and improve customer retention, and helped the founder gain traction in the company\u2019s early days.",
     },
     {
       company: "Aeyron Health",
       role: "Intern",
-      period: "[EXPERIENCE_PERIOD]",
+      period: "90 days",
       summary: "[EXPERIENCE_SUMMARY]",
     },
   ],
@@ -105,7 +105,7 @@ export const portfolio: PortfolioData = {
       url: "https://wingmate.online/",
       repository: "[PROJECT_REPOSITORY]",
       status: "early access",
-      period: "[PROJECT_PERIOD]",
+      period: "",
     },
     {
       title: "Amruta",
@@ -115,7 +115,7 @@ export const portfolio: PortfolioData = {
       url: "https://amruta-web-theta.vercel.app/",
       repository: "[PROJECT_REPOSITORY]",
       status: "[PROJECT_STATUS]",
-      period: "[PROJECT_PERIOD]",
+      period: "July 2025",
     },
     {
       title: "[PROJECT_TITLE]",

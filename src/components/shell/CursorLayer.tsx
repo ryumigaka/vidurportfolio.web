@@ -108,7 +108,7 @@ export default function CursorLayer() {
       </div>
       <span
         ref={readoutRef}
-        className="absolute left-12 top-6 whitespace-nowrap font-mono text-[9px] tracking-widest text-signal/45"
+        className="absolute left-12 top-6 whitespace-nowrap font-mono text-xs tracking-widest text-signal/45"
       />
     </div>
   );

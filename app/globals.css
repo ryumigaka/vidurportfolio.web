@@ -104,6 +104,7 @@
     background: rgb(var(--void));
     color: rgb(var(--fg));
     font-family: theme("fontFamily.mono");
+    font-weight: 600;
     /* The shell owns all scrolling; sections scroll internally. */
     overflow: hidden;
     overscroll-behavior: none;
@@ -162,7 +163,7 @@
   }
 
   .label {
-    @apply font-mono text-[10px] uppercase tracking-widest2 text-dim;
+    @apply font-mono text-xs uppercase tracking-widest2 text-dim;
   }
 
   .hairline-x {

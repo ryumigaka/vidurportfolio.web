@@ -37,7 +37,7 @@ function Identity({ compact = false }: { compact?: boolean }) {
       </h1>
       {portfolio.alias.trim().length > 0 && (
         <p
-          className="stagger-item mt-2 font-mono text-[11px] uppercase tracking-widest2 text-dim"
+          className="stagger-item mt-2 font-mono text-[13px] uppercase tracking-widest2 text-dim"
           style={stagger(2)}
           data-testid="operator-alias"
         >
@@ -53,7 +53,7 @@ function Identity({ compact = false }: { compact?: boolean }) {
         <Value>{portfolio.secondaryRole}</Value>
       </p>
       <p
-        className="stagger-item mt-2.5 font-mono text-[10px] uppercase tracking-widest2 text-dim"
+        className="stagger-item mt-2.5 font-mono text-xs uppercase tracking-widest2 text-dim"
         style={stagger(4)}
       >
         <Value>{portfolio.location}</Value>
@@ -93,7 +93,7 @@ export default function HomeSection({ onNavigate }: HomeSectionProps) {
         ))}
 
         <p
-          className="stagger-item absolute bottom-16 left-10 font-mono text-[10px] uppercase tracking-widest2 text-dim lg:left-16"
+          className="stagger-item absolute bottom-16 left-10 font-mono text-xs uppercase tracking-widest2 text-dim lg:left-16"
           style={stagger(10)}
         >
           Select a node to route

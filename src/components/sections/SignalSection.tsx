@@ -62,7 +62,7 @@ export default function SignalSection() {
           const inner = (
             <>
               <div className="flex items-center gap-3">
-                <span className="font-mono text-[10px] tracking-widest2 text-signal/60">
+                <span className="font-mono text-xs tracking-widest2 text-signal/60">
                   {channel.code}
                 </span>
                 <SocialIcon
@@ -74,7 +74,7 @@ export default function SignalSection() {
                 </span>
               </div>
               <div className="flex items-center gap-3">
-                <span className="max-w-[14rem] truncate font-mono text-[11px] text-muted sm:max-w-[22rem]">
+                <span className="max-w-[14rem] truncate font-mono text-[13px] text-muted sm:max-w-[22rem]">
                   <Value delay={index * 80}>{channel.value}</Value>
                 </span>
                 <span
@@ -124,7 +124,7 @@ export default function SignalSection() {
       </ul>
 
       <p
-        className="stagger-item pb-10 font-mono text-[10px] uppercase leading-relaxed tracking-widest2 text-dim"
+        className="stagger-item pb-10 font-mono text-xs uppercase leading-relaxed tracking-widest2 text-dim"
         style={stagger(6)}
       >
         Channels resolve once the corresponding value is set in

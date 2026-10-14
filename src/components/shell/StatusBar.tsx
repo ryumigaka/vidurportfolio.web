@@ -32,7 +32,7 @@ export default function StatusBar({ view }: { view: ActiveView }) {
   return (
     <footer
       data-testid="status-bar"
-      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-hairline bg-void/70 px-4 py-2 font-mono text-[10px] uppercase tracking-widest2 text-dim backdrop-blur-sm sm:px-6"
+      className="pointer-events-none fixed inset-x-0 bottom-0 z-40 flex items-center justify-between gap-4 border-t border-hairline bg-void/70 px-4 py-2 font-mono text-xs uppercase tracking-widest2 text-dim backdrop-blur-sm sm:px-6"
     >
       <div className="flex items-center gap-2 sm:gap-4">
         <span className="flex items-center gap-1.5 text-signal/70">

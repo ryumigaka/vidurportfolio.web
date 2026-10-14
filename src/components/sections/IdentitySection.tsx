@@ -24,11 +24,11 @@ function ProfileFrame() {
         />
       ) : (
         <div className="flex h-full w-full flex-col items-center justify-center gap-1.5 px-2 text-center">
-          <span className="font-mono text-[9px] uppercase tracking-widest2 text-dim">
+          <span className="font-mono text-xs uppercase tracking-widest2 text-dim">
             No feed
           </span>
           <span className="h-px w-8 bg-signal/30" />
-          <span className="break-all font-mono text-[8px] leading-tight text-dim/70">
+          <span className="break-all font-mono text-xs leading-tight text-dim/70">
             {portfolio.profileImagePath}
           </span>
         </div>
@@ -64,7 +64,7 @@ export default function IdentitySection() {
         <div className="stagger-item flex gap-5" style={stagger(1)}>
           <ProfileFrame />
           <div>
-            <p className="font-mono text-[10px] uppercase tracking-widest2 text-dim">
+            <p className="font-mono text-xs uppercase tracking-widest2 text-dim">
               {portfolio.fullName}
               {portfolio.alias.trim().length > 0 && (
                 <>
@@ -116,11 +116,11 @@ export default function IdentitySection() {
                   <p className="font-display text-xs uppercase tracking-[0.18em] text-fg">
                     <Value delay={index * 80}>{job.company}</Value>
                   </p>
-                  <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest2 text-dim">
+                  <span className="shrink-0 font-mono text-xs uppercase tracking-widest2 text-dim">
                     <Value delay={index * 80 + 40}>{job.period}</Value>
                   </span>
                 </div>
-                <p className="mt-1 font-mono text-[11px] text-signal/80">
+                <p className="mt-1 font-mono text-[13px] text-signal/80">
                   <Value delay={index * 80 + 60}>{job.role}</Value>
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-muted">
@@ -143,7 +143,7 @@ export default function IdentitySection() {
                   aria-label={item.label}
                   data-testid="social-link"
                   data-cursor-target
-                  className="inline-flex items-center gap-2 border border-hairline px-3 py-2 font-mono text-[11px] uppercase tracking-widest2 text-muted transition-colors hover:border-signal/50 hover:text-signal"
+                  className="inline-flex items-center gap-2 border border-hairline px-3 py-2 font-mono text-[13px] uppercase tracking-widest2 text-muted transition-colors hover:border-signal/50 hover:text-signal"
                 >
                   <SocialIcon name={item.icon} />
                   {item.label}
@@ -159,13 +159,13 @@ export default function IdentitySection() {
             <a
               href={portfolio.resumePath}
               data-cursor-target
-              className="mt-3 inline-flex items-center gap-2 border border-hairline px-3 py-2 font-mono text-[11px] uppercase tracking-widest2 text-muted transition-colors hover:border-signal/50 hover:text-signal"
+              className="mt-3 inline-flex items-center gap-2 border border-hairline px-3 py-2 font-mono text-[13px] uppercase tracking-widest2 text-muted transition-colors hover:border-signal/50 hover:text-signal"
             >
               Download resume
               <span aria-hidden="true">↓</span>
             </a>
           ) : (
-            <p className="mt-3 inline-flex items-center gap-2 border border-dashed border-hairline px-3 py-2 font-mono text-[11px] uppercase tracking-widest2 text-dim">
+            <p className="mt-3 inline-flex items-center gap-2 border border-dashed border-hairline px-3 py-2 font-mono text-[13px] uppercase tracking-widest2 text-dim">
               <Value>{portfolio.resumePath}</Value>
             </p>
           )}

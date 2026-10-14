@@ -26,14 +26,14 @@ export default function OperationsSection() {
 
               <div className="flex items-baseline justify-between gap-4">
                 <div className="flex items-baseline gap-3">
-                  <span className="font-mono text-[10px] tracking-widest2 text-signal/60">
+                  <span className="font-mono text-xs tracking-widest2 text-signal/60">
                     {String(index + 1).padStart(2, "0")}
                   </span>
                   <h2 className="font-display text-sm uppercase tracking-[0.18em] text-fg transition-colors duration-300 group-hover:text-signal sm:text-base">
                     <Value delay={index * 70}>{project.title}</Value>
                   </h2>
                 </div>
-                <span className="shrink-0 font-mono text-[10px] uppercase tracking-widest2 text-dim">
+                <span className="shrink-0 font-mono text-xs uppercase tracking-widest2 text-dim">
                   <Value delay={index * 70 + 40}>{project.period}</Value>
                 </span>
               </div>
@@ -46,14 +46,14 @@ export default function OperationsSection() {
                 {project.technologies.map((tech, techIndex) => (
                   <span
                     key={`${tech}-${techIndex}`}
-                    className="border border-hairline px-2 py-0.5 font-mono text-[9px] uppercase tracking-widest2 text-dim"
+                    className="border border-hairline px-2 py-0.5 font-mono text-xs uppercase tracking-widest2 text-dim"
                   >
                     <Value delay={index * 70 + 140 + techIndex * 40}>
                       {tech}
                     </Value>
                   </span>
                 ))}
-                <span className="ml-auto font-mono text-[9px] uppercase tracking-widest2 text-dim/80">
+                <span className="ml-auto font-mono text-xs uppercase tracking-widest2 text-dim/80">
                   <Value delay={index * 70 + 180}>{project.status}</Value>
                 </span>
               </div>
@@ -66,7 +66,7 @@ export default function OperationsSection() {
                       target="_blank"
                       rel="noreferrer"
                       data-cursor-target
-                      className="font-mono text-[10px] uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
+                      className="font-mono text-xs uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
                     >
                       Live ↗
                     </a>
@@ -77,7 +77,7 @@ export default function OperationsSection() {
                       target="_blank"
                       rel="noreferrer"
                       data-cursor-target
-                      className="font-mono text-[10px] uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
+                      className="font-mono text-xs uppercase tracking-widest2 text-muted transition-colors hover:text-signal"
                     >
                       Source ↗
                     </a>

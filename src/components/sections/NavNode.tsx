@@ -23,7 +23,7 @@ export default function NavNode({ meta, onSelect }: NavNodeProps) {
 
       <div className="border border-hairlineBright bg-void/80 px-4 py-3.5 backdrop-blur-[2px] transition-colors duration-300 group-hover:border-signal/60 group-hover:bg-panel/80">
         <div className="flex items-center justify-between gap-3">
-          <span className="font-mono text-[10px] tracking-widest2 text-signal/60">
+          <span className="font-mono text-xs tracking-widest2 text-signal/60">
             {meta.code}
           </span>
           <span className="h-1.5 w-1.5 animate-nodePulse rounded-full bg-signal/50 transition-colors group-hover:bg-signal" />
@@ -31,7 +31,7 @@ export default function NavNode({ meta, onSelect }: NavNodeProps) {
         <div className="mt-2.5 font-display text-base uppercase tracking-[0.22em] text-fg transition-colors duration-300 group-hover:text-signal sm:text-lg">
           {meta.label}
         </div>
-        <div className="mt-1 font-mono text-[10px] uppercase tracking-widest2 text-dim transition-colors duration-300 group-hover:text-muted">
+        <div className="mt-1 font-mono text-xs uppercase tracking-widest2 text-dim transition-colors duration-300 group-hover:text-muted">
           {meta.caption}
         </div>
       </div>

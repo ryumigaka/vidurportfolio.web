@@ -15,12 +15,12 @@ export default function PrimaryChannel() {
           <span className="absolute inline-flex h-full w-full animate-nodePulse rounded-full bg-signal" />
           <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-signal/70" />
         </span>
-        <span className="font-mono text-[10px] uppercase tracking-widest2 text-signal/80">
+        <span className="font-mono text-xs uppercase tracking-widest2 text-signal/80">
           Open channel
         </span>
         <span
           aria-hidden="true"
-          className="font-mono text-[10px] text-signal/60 transition-transform duration-300 group-hover:translate-x-1"
+          className="font-mono text-xs text-signal/60 transition-transform duration-300 group-hover:translate-x-1"
         >
           ▸
         </span>

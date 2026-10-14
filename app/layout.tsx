@@ -1,12 +1,15 @@
 import type { Metadata, Viewport } from "next";
-import { JetBrains_Mono, Space_Grotesk } from "next/font/google";
+import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import { portfolio } from "@/src/data/portfolio";
 import { DEFAULT_THEME, THEME_BOOT_SCRIPT } from "@/src/lib/theme";
 
-const mono = JetBrains_Mono({
+// Bound to --font-mono so every existing `font-mono` class picks it up. A
+// heavier, proportional face reads far better at small sizes than a monospace.
+const mono = Inter({
   subsets: ["latin"],
   variable: "--font-mono",
+  weight: ["500", "600", "700"],
   display: "swap",
 });
 
