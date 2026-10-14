@@ -34,14 +34,18 @@ describe("OperationsSection", () => {
     );
   });
 
-  it("hides links while their values are unresolved placeholders", () => {
+  it("only links projects whose values are resolved", () => {
     render(<OperationsSection />);
-    expect(
-      screen.queryByRole("link", { name: /live/i }),
-    ).not.toBeInTheDocument();
-    expect(
-      screen.queryByRole("link", { name: /source/i }),
-    ).not.toBeInTheDocument();
+    const live = portfolio.projects.filter((p) => isResolvedLink(p.url));
+    const source = portfolio.projects.filter((p) =>
+      isResolvedLink(p.repository),
+    );
+    expect(screen.queryAllByRole("link", { name: /live/i })).toHaveLength(
+      live.length,
+    );
+    expect(screen.queryAllByRole("link", { name: /source/i })).toHaveLength(
+      source.length,
+    );
   });
 });
 

@@ -51,7 +51,7 @@ export const portfolio: PortfolioData = {
   fullName: "Vidur",
   alias: "Ryumigaka",
   handle: "ryumigaka",
-  primaryRole: "[PRIMARY_ROLE]",
+  primaryRole: "Innovator",
   secondaryRole: "[SECONDARY_ROLE]",
   shortBio: "[SHORT_BIO]",
   location: "[LOCATION]",
@@ -72,19 +72,41 @@ export const portfolio: PortfolioData = {
 
   projects: [
     {
-      title: "[PROJECT_TITLE]",
-      description: "[PROJECT_DESCRIPTION]",
+      title: "Wingmate",
+      description:
+        "AI study-abroad guide for students from India and South Asia: a programme directory across seven countries with dated tuition figures, a budget calculator in rupees, document tracking and application checklists.",
       technologies: ["[PROJECT_TECHNOLOGIES]"],
-      url: "[PROJECT_URL]",
+      url: "https://wingmate.online/",
+      repository: "[PROJECT_REPOSITORY]",
+      status: "early access",
+      period: "[PROJECT_PERIOD]",
+    },
+    {
+      title: "Amruta",
+      description:
+        "Online therapy service for the UK that matches each person to a therapist.",
+      technologies: ["[PROJECT_TECHNOLOGIES]"],
+      url: "https://amruta-web-theta.vercel.app/",
       repository: "[PROJECT_REPOSITORY]",
       status: "[PROJECT_STATUS]",
       period: "[PROJECT_PERIOD]",
     },
     {
-      title: "[PROJECT_TITLE]",
-      description: "[PROJECT_DESCRIPTION]",
+      title: "Wingmate",
+      description:
+        "AI study-abroad guide for students from India and South Asia: a programme directory across seven countries with dated tuition figures, a budget calculator in rupees, document tracking and application checklists.",
       technologies: ["[PROJECT_TECHNOLOGIES]"],
-      url: "[PROJECT_URL]",
+      url: "https://wingmate.online/",
+      repository: "[PROJECT_REPOSITORY]",
+      status: "early access",
+      period: "[PROJECT_PERIOD]",
+    },
+    {
+      title: "Amruta",
+      description:
+        "Online therapy service for the UK that matches each person to a therapist.",
+      technologies: ["[PROJECT_TECHNOLOGIES]"],
+      url: "https://amruta-web-theta.vercel.app/",
       repository: "[PROJECT_REPOSITORY]",
       status: "[PROJECT_STATUS]",
       period: "[PROJECT_PERIOD]",
